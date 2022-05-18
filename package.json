@@ -1,0 +1,11 @@
+{
+  "name": "ieee-script-day-bootcamp-backend",
+  "version": "1.0.0",
+  "description": "IEEE Script Day Bootcamp Backend",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kunal Keshan",
+  "license": "MIT"
+}
