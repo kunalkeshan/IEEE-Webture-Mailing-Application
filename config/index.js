@@ -20,6 +20,10 @@ const configuration = {
     isProduction,
     PORT: process.env.PORT || 5000,
     sheets,
+    emailConfig: {
+        apiKey: '',
+        domain: '',
+    }
 };
 
 // Exporting configuration

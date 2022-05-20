@@ -14,7 +14,7 @@ const sheetsLib = {}
 sheetsLib.fetchAllParticipants = async () => {
     try {
         const response = await axios.get(sheets.ALL_PARTICIPANTS_SPREADSHEET_PUBLISHED_URL);
-        const csvToJsonData = await csv().fromString(response.data);console.log(csvToJsonData);
+        const csvToJsonData = await csv().fromString(response.data);
         return csvToJsonData;
     } catch (error) {
         return Promise.reject(error);
