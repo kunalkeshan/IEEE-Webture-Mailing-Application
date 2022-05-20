@@ -8,6 +8,7 @@ const { PORT } = require('./config');
 
 // Initializing App
 const app = express();
+require('./agenda');
 
 // Setting up middleware
 app.use(express.json());

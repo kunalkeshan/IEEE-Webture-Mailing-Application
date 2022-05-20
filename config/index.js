@@ -21,8 +21,8 @@ const configuration = {
     PORT: process.env.PORT || 5000,
     sheets,
     emailConfig: {
-        apiKey: '',
-        domain: '',
+        apiKey: 'df2d9c164a14c5dbe00f162fddc37420-5e7fba0f-78b94ad1',
+        domain: 'sandboxa0990d587e22475eb9a07096a41e3867.mailgun.org',
     }
 };
 
