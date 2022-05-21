@@ -18,8 +18,10 @@ const REPEAT_FIFTEEN_MINUTES = '*/15 * * * *';
 const sortConfirmedParticipants = async () => {
     const allParticipants = await fetchAllParticipants();
     const confirmedParticipants = await fetchConfirmedParticipants();
-    const sortedParticipants = allParticipants.filter(participant => {
-        return !confirmedParticipants.includes(participant["What's your SRMIST email address?"])
+    const sortedParticipants = allParticipants.filter((participant) => {
+        return !confirmedParticipants.find((confirmed) => {
+            return confirmed.email === participant.email;
+        })
     });
     return sortedParticipants;
 };
@@ -27,8 +29,10 @@ const sortConfirmedParticipants = async () => {
 const sortPaidParticipants = async () => {
     const allParticipants = await fetchAllParticipants();
     const paidParticipants = await fetchPaidParticipants();
-    const sortedParticipants = allParticipants.filter(participant => {
-        return !paidParticipants.includes(participant["What's your SRMIST email address?"])
+    const sortedParticipants = allParticipants.filter((participant) => {
+        return !paidParticipants.find((paid) => {
+            return paid.email === participant.email;
+        })
     });
     return sortedParticipants;
 };
