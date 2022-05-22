@@ -4,6 +4,7 @@
 
 // Dependencies
 const express = require('express');
+const appRouter = require('./routers');
 const { PORT } = require('./config');
 
 // Initializing App
@@ -12,6 +13,12 @@ require('./agenda');
 
 // Setting up middleware
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+
+// Setting up routes
+app.use(appRouter);
+
+// Handle Errors
 
 // Initializing Server
 app.listen(PORT, () => {

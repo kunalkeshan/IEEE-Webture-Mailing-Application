@@ -30,8 +30,8 @@ const configuration = {
     sheets,
     SHEET_KEYS,
     emailConfig: {
-        apiKey: 'df2d9c164a14c5dbe00f162fddc37420-5e7fba0f-78b94ad1',
-        domain: 'sandboxa0990d587e22475eb9a07096a41e3867.mailgun.org',
+        apiKey: process.env.EMAIL_API_KEY,
+        domain: process.env.EMAIL_DOMAIN,
     }
 };
 
