@@ -22,6 +22,7 @@ sheetsLib.fetchAllParticipants = async () => {
                 phone: data[SHEET_KEYS.PHONE],
                 registerNo: data[SHEET_KEYS.REGISTER_NO],
                 token: data[SHEET_KEYS.TOKEN],
+                submittedAt: data[SHEET_KEYS.SUBMITTED_AT],
                 paid: data[SHEET_KEYS.PAID] === 'Yes' ? true : false,
             }
         });
@@ -41,6 +42,7 @@ sheetsLib.fetchConfirmedParticipants = async () => {
                 phone: data[SHEET_KEYS.PHONE],
                 registerNo: data[SHEET_KEYS.REGISTER_NO],
                 token: data[SHEET_KEYS.TOKEN],
+                submittedAt: data[SHEET_KEYS.SUBMITTED_AT],
                 paid: data[SHEET_KEYS.PAID] === 'Yes' ? true : false,
             }
         })
@@ -60,6 +62,7 @@ sheetsLib.fetchPaidParticipants = async () => {
                 phone: data[SHEET_KEYS.PHONE],
                 registerNo: data[SHEET_KEYS.REGISTER_NO],
                 token: data[SHEET_KEYS.TOKEN],
+                submittedAt: data[SHEET_KEYS.SUBMITTED_AT],
                 paid: data[SHEET_KEYS.PAID] === 'Yes' ? true : false,
             }
         });
@@ -68,9 +71,49 @@ sheetsLib.fetchPaidParticipants = async () => {
     }
 };
 
-sheetsLib.updateConfirmedParticipants = async ({ name, email, phone, registerNo, token }) => { };
+/**
+ * Order of Filling Up Sheets
+ * | Name | Email | Phone | Register No | Submitted At | Token | Paid |
+ * 
+ */
 
-sheetsLib.updatePaidParticipants = async ({ name, email, phone, registerNo, token }) => { };
+sheetsLib.updateConfirmedParticipants = async ({ name, email, phone, registerNo, token, submittedAt, paid }) => {
+    try {
+        const client = await auth.getClient();
+        const googleSheets = google.sheets({ version: 'v4', auth: client });
+        const values = [name, email, phone, registerNo, submittedAt, token, paid];
+        await googleSheets.spreadsheets.values.append({
+            auth,
+            range: sheets.CONFIRMED_RANGE,
+            spreadsheetId: sheets.CONFIRMED_AND_PAID_PARTICIPANTS_SPREADSHEET_ID,
+            valueInputOption: 'USER_ENTERED',
+            resource: {
+                values,
+            }
+        });
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
+
+sheetsLib.updatePaidParticipants = async ({ name, email, phone, registerNo, token, submittedAt, paid }) => {
+    try {
+        const client = await auth.getClient();
+        const googleSheets = google.sheets({ version: 'v4', auth: client });
+        const values = [name, email, phone, registerNo, submittedAt, token, paid];
+        await googleSheets.spreadsheets.values.append({
+            auth,
+            range: sheets.CONFIRMED_RANGE,
+            spreadsheetId: sheets.CONFIRMED_AND_PAID_PARTICIPANTS_SPREADSHEET_ID,
+            valueInputOption: 'USER_ENTERED',
+            resource: {
+                values,
+            }
+        });
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
 
 module.exports = sheetsLib;
 

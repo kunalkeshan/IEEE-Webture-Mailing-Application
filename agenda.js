@@ -11,7 +11,7 @@ const {
     updateConfirmedParticipants,
     updatePaidParticipants
 } = require('./libs/sheets');
-const { sendConfirmationEmail, sendPaidEmail } = require('./utils/mailer');
+const { sendConfirmationEmail, sendPaidEmail, sendErrorMailToAdmin } = require('./utils/mailer');
 const REPEAT_TEN_MINUTES = '*/10 * * * *';
 const REPEAT_FIFTEEN_MINUTES = '*/15 * * * *';
 
@@ -37,28 +37,29 @@ const sortPaidParticipants = async () => {
     return sortedParticipants;
 };
 
-// // Confirmation Jobs
-// schedule.scheduleJob(REPEAT_TEN_MINUTES, async function () {
-//     const confirmedParticipants = await sortConfirmedParticipants();
-//     confirmedParticipants.forEach(async (participant) => {
-//         await sendConfirmationEmail(participant);
-//         await updateConfirmedParticipants(participant);
-//     });
-// });
+// Confirmation Jobs
+schedule.scheduleJob('*/10 * * * * *', async function () {
+    console.log(`Running Confirmation Job at ${new Date().toLocaleString()}`);
+    const confirmedParticipants = await sortConfirmedParticipants();
+    confirmedParticipants.forEach((participant) => {
+        sendConfirmationEmail(participant).catch((error) => sendErrorMailToAdmin({ values: participant, error }));
+        updateConfirmedParticipants(participant).catch((error) => sendErrorMailToAdmin({ values: participant, error }));
+    });
+});
 
 // // Payment Jobs
 // schedule.scheduleJob(REPEAT_FIFTEEN_MINUTES, async function () {
 //     const paidParticipants = await sortPaidParticipants();
-//     paidParticipants.forEach(async (participant) => {
-//         await sendPaidEmail(participant);
-//         await updatePaidParticipants(participant);
+//     paidParticipants.forEach((participant) => {
+//         sendPaidEmail(participant).catch((error) => sendErrorMailToAdmin({ values: participant, error }));
+//         updatePaidParticipants(participant).catch((error) => sendErrorMailToAdmin({ values: participant, error }));
 //     });
 // });
 
-(async () => {
-    try{
-        console.log(await sortPaidParticipants());    
-    } catch(error) {
-        console.log(error);
-    }
-})();
+// (async () => {
+//     try {
+//         console.log(await sortPaidParticipants());
+//     } catch (error) {
+//         console.log(error);
+//     }
+// })();
