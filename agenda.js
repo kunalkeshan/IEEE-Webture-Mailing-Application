@@ -40,7 +40,7 @@ const sortPaidParticipants = async () => {
 
 // Confirmation Jobs
 schedule.scheduleJob(REPEAT_CONFIRMATION_JOBS, async function () {
-    console.log(`Running Confirmation Job at ${new Date().toLocaleString('en-US', {timeZone: 'IST'})}`);
+    console.log(`Running Confirmation Job at ${new Date().toLocaleString('en-IN')}`);
     const confirmedParticipants = await sortConfirmedParticipants();
     if (!confirmedParticipants.length) return;
     confirmedParticipants.forEach(async (participant) => {
@@ -56,7 +56,7 @@ schedule.scheduleJob(REPEAT_CONFIRMATION_JOBS, async function () {
 
 // Payment Jobs
 schedule.scheduleJob(REPEAT_PAID_JOBS, async function () {
-    console.log(`Running Payment Job at ${new Date().toLocaleString('en-US', {timeZone: 'IST'})}`);
+    console.log(`Running Payment Job at ${new Date().toLocaleString('en-IN')}`);
     const paidParticipants = await sortPaidParticipants();
     if (!paidParticipants.length) return;
     paidParticipants.forEach(async (participant) => {
