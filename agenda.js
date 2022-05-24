@@ -12,8 +12,8 @@ const {
     updatePaidParticipants
 } = require('./libs/sheets');
 const { sendConfirmationEmail, sendPaidEmail, sendErrorMailToAdmin } = require('./utils/mailer');
-const REPEAT_TEN_MINUTES = '*/10 * * * *';
-const REPEAT_FIFTEEN_MINUTES = '*/15 * * * *';
+const REPEAT_CONFIRMATION_JOBS = '*/10 * * * *';
+const REPEAT_PAID_JOBS = '*/13 * * * *';
 
 const sortConfirmedParticipants = async () => {
     const allParticipants = await fetchAllParticipants();
@@ -39,7 +39,7 @@ const sortPaidParticipants = async () => {
 };
 
 // Confirmation Jobs
-schedule.scheduleJob(REPEAT_TEN_MINUTES, async function () {
+schedule.scheduleJob(REPEAT_CONFIRMATION_JOBS, async function () {
     console.log(`Running Confirmation Job at ${new Date().toLocaleString()}`);
     const confirmedParticipants = await sortConfirmedParticipants();
     if (!confirmedParticipants.length) return;
@@ -55,7 +55,7 @@ schedule.scheduleJob(REPEAT_TEN_MINUTES, async function () {
 });
 
 // Payment Jobs
-schedule.scheduleJob(REPEAT_FIFTEEN_MINUTES, async function () {
+schedule.scheduleJob(REPEAT_PAID_JOBS, async function () {
     console.log(`Running Payment Job at ${new Date().toLocaleString()}`);
     const paidParticipants = await sortPaidParticipants();
     if (!paidParticipants.length) return;

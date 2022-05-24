@@ -14,7 +14,7 @@ const sheets = {
     ALL_PARTICIPANTS_SPREADSHEET_ID: isProduction ? '' : '1NH5N5MdtX6PUYCvpsa6yqfCq-hJN_InIue60j11Ygto',
     CONFIRMED_AND_PAID_PARTICIPANTS_SPREADSHEET_ID: isProduction ? '' : '18nz_SDMo-FsklhavmkCA8JpAFOFMo0cXaMnXIzOZtfw',
     CONFIRMED_RANGE: isProduction ? '' : 'Confirmed!A:G',
-    PAID_RANGE: isProduction? '' : 'Paid!A:G',
+    PAID_RANGE: isProduction ? '' : 'Paid!A:G',
 }
 const SHEET_KEYS = {
     EMAIL: "What's your SRMIST email address?",
