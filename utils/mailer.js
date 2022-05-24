@@ -13,7 +13,7 @@ const mailUtility = {};
 mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone }) => {
     return new Promise((resolve, reject) => {
         const data = {
-            from: adminEmail,
+            from: "no-reply@ieeesrmist.in",
             to: email,
             subject: "IEEE SRMIST Student Branch - Registration Confirmation",
             html: `
@@ -38,7 +38,7 @@ mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone }) 
 mailUtility.sendPaidEmail = ({ email, name, token, registerNo, phone }) => {
     return new Promise((resolve, reject) => {
         const data = {
-            from: adminEmail,
+            from: "no-reply@ieeesrmist.in",
             to: email,
             subject: "IEEE SRMIST Student Branch - Payment Confirmation",
             html: `
@@ -64,9 +64,9 @@ mailUtility.sendErrorMailToAdmin = ({ email = adminEmail, values, error }) => {
             html: `
                 <h3>Error sending Mail</h3>
                 <p>There was an error sending an email to the individual with the following details:</p>
-                <ul>${Object.keys(values).map((key) => {
-                return `<li>${key}: ${values[key]}</li>`;
-            }).join('')
+                <ul>${
+                    Object.keys(values).map((key) => {
+                    return `<li>${key}: ${values[key]}</li>`}).join('')
                 }</ul>
                 <p>With the error</p>
                 <p>${error}</p>

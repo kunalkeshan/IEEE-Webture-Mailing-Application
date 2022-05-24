@@ -38,27 +38,32 @@ const sortPaidParticipants = async () => {
 };
 
 // Confirmation Jobs
-schedule.scheduleJob('*/10 * * * * *', async function () {
+schedule.scheduleJob(REPEAT_TEN_MINUTES, async function () {
     console.log(`Running Confirmation Job at ${new Date().toLocaleString()}`);
     const confirmedParticipants = await sortConfirmedParticipants();
-    confirmedParticipants.forEach((participant) => {
-        sendConfirmationEmail(participant).catch((error) => sendErrorMailToAdmin({ values: participant, error }));
-        updateConfirmedParticipants(participant).catch((error) => sendErrorMailToAdmin({ values: participant, error }));
+    confirmedParticipants.forEach(async (participant) => {
+        try {
+            await sendConfirmationEmail(participant)
+            await updateConfirmedParticipants(participant)
+        } catch (error) {
+            console.log(error);
+            await sendErrorMailToAdmin({ values: participant, error });
+        }
     });
 });
 
 // // Payment Jobs
 // schedule.scheduleJob(REPEAT_FIFTEEN_MINUTES, async function () {
 //     const paidParticipants = await sortPaidParticipants();
-//     paidParticipants.forEach((participant) => {
-//         sendPaidEmail(participant).catch((error) => sendErrorMailToAdmin({ values: participant, error }));
-//         updatePaidParticipants(participant).catch((error) => sendErrorMailToAdmin({ values: participant, error }));
+//     paidParticipants.forEach(async (participant) => {
+//         await sendPaidEmail(participant).catch((error) => sendErrorMailToAdmin({ values: participant, error }));
+//         await updatePaidParticipants(participant).catch((error) => sendErrorMailToAdmin({ values: participant, error }));
 //     });
 // });
 
 // (async () => {
 //     try {
-//         console.log(await sortPaidParticipants());
+//         console.log(await sortConfirmedParticipants());
 //     } catch (error) {
 //         console.log(error);
 //     }

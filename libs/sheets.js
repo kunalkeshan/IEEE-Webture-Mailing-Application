@@ -88,7 +88,7 @@ sheetsLib.updateConfirmedParticipants = async ({ name, email, phone, registerNo,
             spreadsheetId: sheets.CONFIRMED_AND_PAID_PARTICIPANTS_SPREADSHEET_ID,
             valueInputOption: 'USER_ENTERED',
             resource: {
-                values,
+                values: [values],
             }
         });
     } catch (error) {
@@ -107,7 +107,7 @@ sheetsLib.updatePaidParticipants = async ({ name, email, phone, registerNo, toke
             spreadsheetId: sheets.CONFIRMED_AND_PAID_PARTICIPANTS_SPREADSHEET_ID,
             valueInputOption: 'USER_ENTERED',
             resource: {
-                values,
+                values: [values],
             }
         });
     } catch (error) {
