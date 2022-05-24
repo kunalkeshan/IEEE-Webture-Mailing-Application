@@ -27,7 +27,8 @@ const sortConfirmedParticipants = async () => {
 };
 
 const sortPaidParticipants = async () => {
-    const allParticipants = await fetchAllParticipants();
+    let allParticipants = await fetchAllParticipants();
+    allParticipants = allParticipants.filter((participant) => participant.paid);
     const paidParticipants = await fetchPaidParticipants();
     const sortedParticipants = allParticipants.filter((participant) => {
         return !paidParticipants.find((paid) => {
@@ -41,6 +42,7 @@ const sortPaidParticipants = async () => {
 schedule.scheduleJob(REPEAT_TEN_MINUTES, async function () {
     console.log(`Running Confirmation Job at ${new Date().toLocaleString()}`);
     const confirmedParticipants = await sortConfirmedParticipants();
+    if (!confirmedParticipants.length) return;
     confirmedParticipants.forEach(async (participant) => {
         try {
             await sendConfirmationEmail(participant)
@@ -52,19 +54,18 @@ schedule.scheduleJob(REPEAT_TEN_MINUTES, async function () {
     });
 });
 
-// // Payment Jobs
-// schedule.scheduleJob(REPEAT_FIFTEEN_MINUTES, async function () {
-//     const paidParticipants = await sortPaidParticipants();
-//     paidParticipants.forEach(async (participant) => {
-//         await sendPaidEmail(participant).catch((error) => sendErrorMailToAdmin({ values: participant, error }));
-//         await updatePaidParticipants(participant).catch((error) => sendErrorMailToAdmin({ values: participant, error }));
-//     });
-// });
-
-// (async () => {
-//     try {
-//         console.log(await sortConfirmedParticipants());
-//     } catch (error) {
-//         console.log(error);
-//     }
-// })();
+// Payment Jobs
+schedule.scheduleJob(REPEAT_FIFTEEN_MINUTES, async function () {
+    console.log(`Running Payment Job at ${new Date().toLocaleString()}`);
+    const paidParticipants = await sortPaidParticipants();
+    if (!paidParticipants.length) return;
+    paidParticipants.forEach(async (participant) => {
+        try {
+            await sendPaidEmail(participant);
+            await updatePaidParticipants(participant);
+        } catch (error) {
+            console.log(error);
+            await sendErrorMailToAdmin({ values: participant, error });
+        }
+    });
+});

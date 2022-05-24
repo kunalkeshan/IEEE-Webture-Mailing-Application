@@ -103,7 +103,7 @@ sheetsLib.updatePaidParticipants = async ({ name, email, phone, registerNo, toke
         const values = [name, email, phone, registerNo, submittedAt, token, paid];
         await googleSheets.spreadsheets.values.append({
             auth,
-            range: sheets.CONFIRMED_RANGE,
+            range: sheets.PAID_RANGE,
             spreadsheetId: sheets.CONFIRMED_AND_PAID_PARTICIPANTS_SPREADSHEET_ID,
             valueInputOption: 'USER_ENTERED',
             resource: {
