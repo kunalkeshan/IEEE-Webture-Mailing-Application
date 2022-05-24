@@ -82,7 +82,7 @@ sheetsLib.updateConfirmedParticipants = async ({ name, email, phone, registerNo,
         const client = await auth.getClient();
         const googleSheets = google.sheets({ version: 'v4', auth: client });
         const values = [name, email, phone, registerNo, submittedAt, token, paid];
-        await googleSheets.spreadsheets.values.append({
+        googleSheets.spreadsheets.values.append({
             auth,
             range: sheets.CONFIRMED_RANGE,
             spreadsheetId: sheets.CONFIRMED_AND_PAID_PARTICIPANTS_SPREADSHEET_ID,
@@ -101,7 +101,7 @@ sheetsLib.updatePaidParticipants = async ({ name, email, phone, registerNo, toke
         const client = await auth.getClient();
         const googleSheets = google.sheets({ version: 'v4', auth: client });
         const values = [name, email, phone, registerNo, submittedAt, token, paid];
-        await googleSheets.spreadsheets.values.append({
+        googleSheets.spreadsheets.values.append({
             auth,
             range: sheets.PAID_RANGE,
             spreadsheetId: sheets.CONFIRMED_AND_PAID_PARTICIPANTS_SPREADSHEET_ID,
