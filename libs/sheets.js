@@ -3,10 +3,14 @@
  */
 
 // Dependencies
+const fs = require('fs');
+const path = require('path');
 const axios = require('axios');
 const csv = require('csvtojson');
 const { auth, google } = require('../utils/googleapi');
 const { sheets, SHEET_KEYS } = require('../config');
+
+const PARTICIPANTS_FILE_PATH = path.resolve('.data', 'participants.json');
 
 // Sheets Lib Container
 const sheetsLib = {}
@@ -33,19 +37,8 @@ sheetsLib.fetchAllParticipants = async () => {
 
 sheetsLib.fetchConfirmedParticipants = async () => {
     try {
-        const response = await axios.get(sheets.CONFIRMED_PARTICIPANTS_SPREADSHEET_PUBLISHED_URL);
-        const csvToJsonData = await csv().fromString(response.data);
-        return csvToJsonData.map((data) => {
-            return {
-                name: data[SHEET_KEYS.NAME],
-                email: data[SHEET_KEYS.EMAIL],
-                phone: data[SHEET_KEYS.PHONE],
-                registerNo: data[SHEET_KEYS.REGISTER_NO],
-                token: data[SHEET_KEYS.TOKEN],
-                submittedAt: data[SHEET_KEYS.SUBMITTED_AT],
-                paid: data[SHEET_KEYS.PAID] === 'Yes' ? true : false,
-            }
-        })
+        const { participants } = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
+        return participants;
     } catch (error) {
         return Promise.reject(error);
     }
@@ -53,19 +46,9 @@ sheetsLib.fetchConfirmedParticipants = async () => {
 
 sheetsLib.fetchPaidParticipants = async () => {
     try {
-        const response = await axios.get(sheets.PAID_PARTICIPANTS_SPREADSHEET_PUBLISHED_URL);
-        const csvToJsonData = await csv().fromString(response.data);
-        return csvToJsonData.map((data) => {
-            return {
-                name: data[SHEET_KEYS.NAME],
-                email: data[SHEET_KEYS.EMAIL],
-                phone: data[SHEET_KEYS.PHONE],
-                registerNo: data[SHEET_KEYS.REGISTER_NO],
-                token: data[SHEET_KEYS.TOKEN],
-                submittedAt: data[SHEET_KEYS.SUBMITTED_AT],
-                paid: data[SHEET_KEYS.PAID] === 'Yes' ? true : false,
-            }
-        });
+        let { participants } = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
+        participants = participants.filter((participant) => participant.paid);
+        return participants;
     } catch (error) {
         return Promise.reject(error);
     }
@@ -77,39 +60,23 @@ sheetsLib.fetchPaidParticipants = async () => {
  * 
  */
 
-sheetsLib.updateConfirmedParticipants = async ({ name, email, phone, registerNo, token, submittedAt, paid }) => {
+sheetsLib.updateConfirmedParticipants = async (participant) => {
     try {
-        const client = await auth.getClient();
-        const googleSheets = google.sheets({ version: 'v4', auth: client });
-        const values = [name, email, phone, registerNo, submittedAt, token, paid];
-        await googleSheets.spreadsheets.values.append({
-            auth,
-            range: sheets.CONFIRMED_RANGE,
-            spreadsheetId: sheets.CONFIRMED_AND_PAID_PARTICIPANTS_SPREADSHEET_ID,
-            valueInputOption: 'USER_ENTERED',
-            resource: {
-                values: [values],
-            }
-        });
+        let { participants } = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
+        participants = [...participants, participant];
+        fs.writeFileSync(PARTICIPANTS_FILE_PATH, JSON.stringify({ participants }, null, '\t'));
     } catch (error) {
         return Promise.reject(error);
     }
 };
 
-sheetsLib.updatePaidParticipants = async ({ name, email, phone, registerNo, token, submittedAt, paid }) => {
+sheetsLib.updatePaidParticipants = async ({ email, paid }) => {
     try {
-        const client = await auth.getClient();
-        const googleSheets = google.sheets({ version: 'v4', auth: client });
-        const values = [name, email, phone, registerNo, submittedAt, token, paid];
-        await googleSheets.spreadsheets.values.append({
-            auth,
-            range: sheets.PAID_RANGE,
-            spreadsheetId: sheets.CONFIRMED_AND_PAID_PARTICIPANTS_SPREADSHEET_ID,
-            valueInputOption: 'USER_ENTERED',
-            resource: {
-                values: [values],
-            }
-        });
+        let { participants } = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
+        participants.forEach((participant) => {
+            if (participant.email === email) participant.paid = paid;
+        })
+        fs.writeFileSync(PARTICIPANTS_FILE_PATH, JSON.stringify({ participants }, null, '\t'));
     } catch (error) {
         return Promise.reject(error);
     }

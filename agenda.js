@@ -12,6 +12,7 @@ const {
     updatePaidParticipants
 } = require('./libs/sheets');
 const { sendConfirmationEmail, sendPaidEmail, sendErrorMailToAdmin } = require('./utils/mailer');
+
 const REPEAT_CONFIRMATION_JOBS = '*/10 * * * *';
 const REPEAT_PAID_JOBS = '*/13 * * * *';
 
@@ -28,8 +29,8 @@ const sortConfirmedParticipants = async () => {
 
 const sortPaidParticipants = async () => {
     let allParticipants = await fetchAllParticipants();
-    allParticipants = allParticipants.filter((participant) => participant.paid);
     const paidParticipants = await fetchPaidParticipants();
+    allParticipants = allParticipants.filter((participant) => participant.paid);
     const sortedParticipants = allParticipants.filter((participant) => {
         return !paidParticipants.find((paid) => {
             return paid.email === participant.email;
@@ -45,8 +46,8 @@ schedule.scheduleJob(REPEAT_CONFIRMATION_JOBS, async function () {
     if (!confirmedParticipants.length) return;
     confirmedParticipants.forEach(async (participant) => {
         try {
-            await sendConfirmationEmail(participant)
-            await updateConfirmedParticipants(participant)
+            await sendConfirmationEmail(participant);
+            await updateConfirmedParticipants(participant);
         } catch (error) {
             console.log(error);
             await sendErrorMailToAdmin({ values: participant, error });

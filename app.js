@@ -4,7 +4,6 @@
 
 // Dependencies
 const express = require('express');
-const wakeDyno = require('woke-dyno');
 const appRouter = require('./routers');
 const { PORT } = require('./config');
 
@@ -23,9 +22,6 @@ app.use(appRouter);
 
 // Initializing Server
 app.listen(PORT, () => {
-    wakeDyno({
-        url: 'https://ieee-bootcamp-2022-backend.onrender.com',
-        interval: 600000, // 10 mins
-    }).start(); 
+    require('./utils/initialize');
     console.log(`Server is running on http://localhost:${PORT}`);
 })
