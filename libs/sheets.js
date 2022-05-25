@@ -37,7 +37,8 @@ sheetsLib.fetchAllParticipants = async () => {
 
 sheetsLib.fetchConfirmedParticipants = async () => {
     try {
-        return JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
+        const { participants } = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
+        return participants;
     } catch (error) {
         return Promise.reject(error);
     }
@@ -45,7 +46,7 @@ sheetsLib.fetchConfirmedParticipants = async () => {
 
 sheetsLib.fetchPaidParticipants = async () => {
     try {
-        let participants = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
+        let { participants } = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
         participants = participants.filter((participant) => participant.paid);
         return participants;
     } catch (error) {
@@ -59,11 +60,11 @@ sheetsLib.fetchPaidParticipants = async () => {
  * 
  */
 
-sheetsLib.updateConfirmedParticipants = async ({ name, email, phone, registerNo, token, submittedAt, paid }) => {
+sheetsLib.updateConfirmedParticipants = async (participant) => {
     try {
-        let participants = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
-        participants = [...participants, { name, email, phone, registerNo, token, submittedAt, paid }];
-        fs.writeFileSync(PARTICIPANTS_FILE_PATH, JSON.stringify(participants, null, '\t'));
+        let { participants } = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
+        participants = [...participants, participant];
+        fs.writeFileSync(PARTICIPANTS_FILE_PATH, JSON.stringify({ participants }, null, '\t'));
     } catch (error) {
         return Promise.reject(error);
     }
@@ -71,11 +72,11 @@ sheetsLib.updateConfirmedParticipants = async ({ name, email, phone, registerNo,
 
 sheetsLib.updatePaidParticipants = async ({ email, paid }) => {
     try {
-        let participants = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
+        let { participants } = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
         participants.forEach((participant) => {
-            if(participant.email === email) participant.paid = paid;
+            if (participant.email === email) participant.paid = paid;
         })
-        fs.writeFileSync(PARTICIPANTS_FILE_PATH, JSON.stringify(participants, null, '\t'));
+        fs.writeFileSync(PARTICIPANTS_FILE_PATH, JSON.stringify({ participants }, null, '\t'));
     } catch (error) {
         return Promise.reject(error);
     }
