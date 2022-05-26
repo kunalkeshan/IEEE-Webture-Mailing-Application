@@ -7,7 +7,6 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const csv = require('csvtojson');
-const { auth, google } = require('../utils/googleapi');
 const { sheets, SHEET_KEYS } = require('../config');
 
 const PARTICIPANTS_FILE_PATH = path.resolve('.data', 'participants.json');
@@ -57,7 +56,7 @@ sheetsLib.fetchPaidParticipants = async () => {
 /**
  * Order of Filling Up Sheets
  * | Name | Email | Phone | Register No | Submitted At | Token | Paid |
- * 
+ * Does not matter in JSON
  */
 
 sheetsLib.updateConfirmedParticipants = async (participant) => {
@@ -83,5 +82,3 @@ sheetsLib.updatePaidParticipants = async ({ email, paid }) => {
 };
 
 module.exports = sheetsLib;
-
-sheetsLib.fetchAllParticipants()
