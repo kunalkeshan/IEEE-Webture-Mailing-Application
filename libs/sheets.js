@@ -8,7 +8,6 @@ const path = require('path');
 const axios = require('axios');
 const csv = require('csvtojson');
 const { sheets, SHEET_KEYS } = require('../config');
-// const { auth, google } = require('../utils/googleapi');
 
 const PARTICIPANTS_FILE_PATH = path.resolve('.data', 'participants.json');
 
