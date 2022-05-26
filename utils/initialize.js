@@ -5,13 +5,6 @@
 // Dependencies
 const fs = require('fs');
 const path = require('path');
-// const wakeDyno = require('woke-dyno');
-
-// Request to app to stop it from sleeping | WRITTEN FOR RENDER AND HEROKU
-// wakeDyno({
-//     url: 'https://ieee-bootcamp-2022-backend.onrender.com',
-//     interval: 600000, // 10 mins
-// }).start();
 
 // Creating Directory if not exists
 (() => {
