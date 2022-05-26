@@ -68,7 +68,7 @@ mailUtility.sendErrorMailToAdmin = ({ email = adminEmail, values, error }) => {
                     Object.keys(values).map((key) => {
                     return `<li>${key}: ${values[key]}</li>`}).join('')
                 }</ul>
-                <p>With the error</p>
+                <p>With the error:</p>
                 <p>${error}</p>
             `,
         };
