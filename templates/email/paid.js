@@ -2,6 +2,6 @@
  * Paid Email Template
  */
 
-const paidEmailTemplate = ({}) => {};
+const paidEmailTemplate = ({name, token}) => {};
 
 module.exports = paidEmailTemplate;

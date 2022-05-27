@@ -2,6 +2,6 @@
  * Confirmed Email Template
  */
 
-const confirmedEmailTemplate = ({}) => {};
+const confirmedEmailTemplate = ({name, token}) => {};
 
 module.exports = confirmedEmailTemplate;
