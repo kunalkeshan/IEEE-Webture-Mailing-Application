@@ -28,7 +28,7 @@ mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone }) 
                 <p>Use this token for your reference: <b>${token}</b></p>
             `,
         };
-        mailgun.messages().send(data, (error) => {
+        return mailgun.messages().send(data, (error) => {
             if (error) return reject(error);
             return resolve();
         });
@@ -48,7 +48,7 @@ mailUtility.sendPaidEmail = ({ email, name, token, registerNo, phone }) => {
                 <p>Use this token for your reference when attending the event: <b>${token}</b></p>
             `,
         };
-        mailgun.messages().send(data, (error) => {
+        return mailgun.messages().send(data, (error) => {
             if (error) return reject(error);
             return resolve();
         });

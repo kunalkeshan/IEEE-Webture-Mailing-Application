@@ -18,7 +18,7 @@ require('./agenda');
 app.use(cors({
     optionsSuccessStatus: 200,
     methods: 'GET',
-}))
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
