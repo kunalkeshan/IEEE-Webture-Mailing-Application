@@ -3,8 +3,7 @@
  */
 
 // Dependencies
-const fs = require('fs');
-const { fetchConfirmedParticipants } = require('../libs/sheets');
+const Participants = require('../models/Participants');
 const { ApiError } = require('../utils/custom');
 
 // App Controller Container
@@ -22,7 +21,7 @@ appController.index = (req, res, next) => {
             description: 'Extracts information from the registrations made for the event, send\'s and confirmation mail and a paid mail once payment is done.',
             code: {
                 repository: 'https://github.com/kunalkeshan/IEEE-Script-Day-Bootcamp-Backend',
-                hosted: 'https://render.com'
+                hosted: 'https://heroku.com'
             },
             createdBy: {
                 name: 'Kunal Keshan',
@@ -42,13 +41,13 @@ appController.index = (req, res, next) => {
  */
 appController.fetchNumberOfParticipants = async (req, res, next) => {
     try {
-        let count = await fetchConfirmedParticipants();
+        const count = await Participants.countDocuments();
         return res.status(200).json({
             success: true,
             message: 'Number of participants fetched successfully',
             data: {
                 participants: {
-                    count: count.length,
+                    count,
                 }
             }
         })

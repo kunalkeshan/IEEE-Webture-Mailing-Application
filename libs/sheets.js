@@ -3,6 +3,7 @@
  */
 
 // Dependencies
+const Participants = require('../models/Participants');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
@@ -36,7 +37,7 @@ sheetsLib.fetchAllParticipants = async () => {
 
 sheetsLib.fetchConfirmedParticipants = async () => {
     try {
-        const { participants } = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
+        const participants = await Participants.find().lean();
         return participants;
     } catch (error) {
         return Promise.reject(error);
@@ -45,8 +46,7 @@ sheetsLib.fetchConfirmedParticipants = async () => {
 
 sheetsLib.fetchPaidParticipants = async () => {
     try {
-        let { participants } = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
-        participants = participants.filter((participant) => participant.paid);
+        const participants = await Participants.find({ paid: true }).lean();
         return participants;
     } catch (error) {
         return Promise.reject(error);
@@ -61,9 +61,7 @@ sheetsLib.fetchPaidParticipants = async () => {
 
 sheetsLib.updateConfirmedParticipants = async (participant) => {
     try {
-        let { participants } = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
-        participants = [...participants, participant];
-        fs.writeFileSync(PARTICIPANTS_FILE_PATH, JSON.stringify({ participants }, null, '\t'));
+        await Participants.create(participant);
     } catch (error) {
         return Promise.reject(error);
     }
@@ -71,11 +69,7 @@ sheetsLib.updateConfirmedParticipants = async (participant) => {
 
 sheetsLib.updatePaidParticipants = async ({ email, paid }) => {
     try {
-        let { participants } = JSON.parse(fs.readFileSync(PARTICIPANTS_FILE_PATH));
-        participants.forEach((participant) => {
-            if (participant.email === email) participant.paid = paid;
-        })
-        fs.writeFileSync(PARTICIPANTS_FILE_PATH, JSON.stringify({ participants }, null, '\t'));
+        await Participants.updateOne({ email }, { paid });
     } catch (error) {
         return Promise.reject(error);
     }

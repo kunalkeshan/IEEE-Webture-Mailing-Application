@@ -3,39 +3,25 @@
  */
 
 // Dependencies
-const fs = require('fs');
-const path = require('path');
+const mongoose = require('mongoose');
+const wakeDyno = require('woke-dyno');
+const { DB_URL } = require('../config');
 
-// Creating Directory if not exists
-(() => {
-    const DIRECTORIES = [
-        path.resolve('.data')
-    ];
-    try {
-        DIRECTORIES.forEach((directory, index) => {
-            if (!fs.existsSync(directory)) {
-                fs.mkdirSync(directory, { recursive: true })
-                if (index === DIRECTORIES.length - 1) console.log(`Directories created: ${DIRECTORIES.join(', ')}`);
-            };
-        })
-    } catch (error) {
-        console.log(`Error creating directories: ${error}`);
-    }
-})();
+// Request to app to stop it from sleeping
+wakeDyno({
+    url: 'https://ieee-webture.herokuapp.com/',
+    interval: 600000, // 10 mins
+}).start();
 
-// Creating File if not exists
-(() => {
-    const FILES = [
-        path.resolve('.data', 'participants.json'),
-    ]
+// Connect to Database
+(async () => {
     try {
-        FILES.forEach((file, index) => {
-            if (!fs.existsSync(file)) {
-                fs.writeFileSync(file, JSON.stringify({ participants: [] }, null, '\t'), {flag: 'w'});
-                if (index === FILES.length - 1) console.log(`Files created: ${FILES.join(', ')}`);
-            };
+        await mongoose.connect(DB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
         });
+        console.log('Connected to Database.');
     } catch (error) {
-        console.log(`Error creating files: ${error}`);
+        console.log(`Error connecting to Database: ${error}`);
     }
 })();

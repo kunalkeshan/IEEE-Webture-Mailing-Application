@@ -32,7 +32,7 @@ const sortPaidParticipants = async () => {
     const paidParticipants = await fetchPaidParticipants();
     allParticipants = allParticipants.filter((participant) => participant.paid);
     const sortedParticipants = allParticipants.filter((participant) => {
-        return !paidParticipants.find((paid) => {
+        return !paidParticipants.find((paid) => { 
             return paid.email === participant.email;
         })
     });
