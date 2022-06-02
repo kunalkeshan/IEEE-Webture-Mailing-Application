@@ -5,6 +5,7 @@
 // Dependencies
 const mongoose = require('mongoose');
 const wakeDyno = require('woke-dyno');
+const { DB_URL } = require('../config');
 
 // Request to app to stop it from sleeping
 wakeDyno({
@@ -19,7 +20,7 @@ wakeDyno({
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
-        console.log('Connected to Database');
+        console.log('Connected to Database.');
     } catch (error) {
         console.log(`Error connecting to Database: ${error}`);
     }
