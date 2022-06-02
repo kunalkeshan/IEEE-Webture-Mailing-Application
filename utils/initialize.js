@@ -5,6 +5,13 @@
 // Dependencies
 const fs = require('fs');
 const path = require('path');
+const wakeDyno = require('woke-dyno');
+
+// Request to app to stop it from sleeping
+wakeDyno({
+    url: 'https://ieee-webture.herokuapp.com/',
+    interval: 600000, // 10 mins
+}).start();
 
 // Creating Directory if not exists
 (() => {

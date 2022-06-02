@@ -18,7 +18,8 @@
     "express": "^4.18.1",
     "mailgun-js": "^0.22.0",
     "mongoose": "^6.3.5",
-    "node-schedule": "^2.1.0"
+    "node-schedule": "^2.1.0",
+    "woke-dyno": "^0.0.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
