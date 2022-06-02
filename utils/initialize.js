@@ -13,3 +13,14 @@ wakeDyno({
 }).start();
 
 // Connect to Database
+(async () => {
+    try {
+        await mongoose.connect(DB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log('Connected to Database');
+    } catch (error) {
+        console.log(`Error connecting to Database: ${error}`);
+    }
+})();
