@@ -14,7 +14,7 @@ Table of Contents:
 
 Use `$ npm install` to install the dependencies.
 
-Additionally you'll need to do some external set up. 
+Additionally you'll need to do some external set up.
 
 - The Response's from the Google Sheets being extracted come from the responses of [TypeForm](https://typeform.com).
   - Create a TypeForm and Connect it to a Google Sheet.
@@ -42,6 +42,11 @@ Additionally you'll need to do some external set up.
 
     EMAIL_API_KEY=<mailgun api key here>
     EMAIL_DOMAIN=<mailgun api domain here>
+
+    # DATABASE
+
+    DB_URL_TEST='mongodb://localhost:27017:IEEEWebture'
+    DB_URL_PROD=<production mongodb url here>
   ```
 
 ## Basic Functions
