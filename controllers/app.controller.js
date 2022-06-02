@@ -21,7 +21,7 @@ appController.index = (req, res, next) => {
             description: 'Extracts information from the registrations made for the event, send\'s and confirmation mail and a paid mail once payment is done.',
             code: {
                 repository: 'https://github.com/kunalkeshan/IEEE-Script-Day-Bootcamp-Backend',
-                hosted: 'https://render.com'
+                hosted: 'https://heroku.com'
             },
             createdBy: {
                 name: 'Kunal Keshan',
