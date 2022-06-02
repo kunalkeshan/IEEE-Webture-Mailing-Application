@@ -3,8 +3,7 @@
  */
 
 // Dependencies
-const fs = require('fs');
-const { fetchConfirmedParticipants } = require('../libs/sheets');
+const Participants = require('../models/Participants');
 const { ApiError } = require('../utils/custom');
 
 // App Controller Container
@@ -42,13 +41,13 @@ appController.index = (req, res, next) => {
  */
 appController.fetchNumberOfParticipants = async (req, res, next) => {
     try {
-        let count = await fetchConfirmedParticipants();
+        const count = await Participants.countDocuments();
         return res.status(200).json({
             success: true,
             message: 'Number of participants fetched successfully',
             data: {
                 participants: {
-                    count: count.length,
+                    count,
                 }
             }
         })
