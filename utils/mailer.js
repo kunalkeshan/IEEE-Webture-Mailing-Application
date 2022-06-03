@@ -6,6 +6,7 @@
 // Dependencies
 const { emailConfig, adminEmail } = require('../config');
 const mailgun = require('mailgun-js')(emailConfig);
+const { confirmedEmail, paidEmail } = require('../templates');
 
 // Mailer Utility Container
 const mailUtility = {};
@@ -64,9 +65,9 @@ mailUtility.sendErrorMailToAdmin = ({ email = adminEmail, values, error }) => {
             html: `
                 <h3>Error sending Mail</h3>
                 <p>There was an error sending an email to the individual with the following details:</p>
-                <ul>${
-                    Object.keys(values).map((key) => {
-                    return `<li>${key}: ${values[key]}</li>`}).join('')
+                <ul>${Object.keys(values).map((key) => {
+                return `<li>${key}: ${values[key]}</li>`
+            }).join('')
                 }</ul>
                 <p>With the error:</p>
                 <p>${error}</p>
