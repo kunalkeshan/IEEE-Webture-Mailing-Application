@@ -55,7 +55,7 @@ Additionally you'll need to do some external set up.
 - It fetches the data from the Google Sheet and sends the emails.
 - It uses [TypeForm](https://typeform.com) to get the responses.
 - It uses [Mailgun](https://mailgun.com) to send the emails.
-- For Quick comparison, of email recipients, the data is stored in MongoDB.
+- For Quick comparison, of email recipients, the data is stored in MongoDB. (Also if the hosting system is ephemeral, this saves the tension of having to worry about emails being sent more than once to the same person)
 - Three Emails are sent to the attendees.
   - One is a confirmation email.
   - The other is a paid email.

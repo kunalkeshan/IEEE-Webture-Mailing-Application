@@ -23,13 +23,23 @@ const SHEET_KEYS = {
     PAID: "Paid",
 }
 
+const SHEET_KEYS_PROD = {
+    EMAIL: '',
+    PHONE: '',
+    REGISTER_NO: '',
+    TOKEN: 'Token',
+    NAME: '',
+    SUBMITTED_AT: 'Submitted At',
+    PAID: '',
+};
+
 // Configuration Container
 const configuration = {
     isProduction,
     PORT: process.env.PORT || 5000,
     sheets,
     DB_URL,
-    SHEET_KEYS,
+    SHEET_KEYS: isProduction ? SHEET_KEYS_PROD : SHEET_KEYS,
     adminEmail: 'kk1738@srmist.edu.in',
     emailConfig: {
         apiKey: process.env.EMAIL_API_KEY,
