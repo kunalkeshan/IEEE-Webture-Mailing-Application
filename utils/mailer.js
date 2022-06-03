@@ -17,6 +17,7 @@ mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone }) 
             from: "no-reply@ieeesrmist.in",
             to: email,
             subject: "IEEE SRMIST Student Branch - Registration Confirmation",
+            // html: confirmedEmail({name, token}),
             html: `
                 <h3>Registration Confirmation</h3>
                 <p>Dear ${name},</p>
@@ -42,6 +43,7 @@ mailUtility.sendPaidEmail = ({ email, name, token, registerNo, phone }) => {
             from: "no-reply@ieeesrmist.in",
             to: email,
             subject: "IEEE SRMIST Student Branch - Payment Confirmation",
+            // html: paidEmail({name, token}),
             html: `
                 <h3>Payment Confirmation</h3>
                 <p>Dear ${name},</p>
