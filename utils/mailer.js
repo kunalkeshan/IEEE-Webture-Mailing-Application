@@ -17,13 +17,7 @@ mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone }) 
             from: "no-reply@ieeesrmist.in",
             to: email,
             subject: "Registration Confirmed | Webture IEEE SRM",
-            // html: confirmedEmail({name, token}),
-            html: `
-                <h3>Registration Confirmation</h3>
-                <p>Dear ${name},</p>
-                <p>Thank you for registering for Webture Bootcamp by IEEE SRM. You'll receive further updates through your email soon!</p>
-                <p>Use this token for your reference: <b>${token}</b></p>
-            `,
+            html: confirmedEmail({name, token}),
         };
         if(typeof name !== 'string' || typeof email !== 'string' || !email.includes('@')) {
             return resolve();

@@ -56,17 +56,17 @@ schedule.scheduleJob(REPEAT_CONFIRMATION_JOBS, async function () {
 });
 
 // Payment Jobs
-schedule.scheduleJob(REPEAT_PAID_JOBS, async function () {
-    console.log(`Running Payment Job at ${new Date().toLocaleString()}`);
-    const paidParticipants = await sortPaidParticipants();
-    if (!paidParticipants.length) return;
-    paidParticipants.forEach(async (participant) => {
-        try {
-            await sendPaidEmail(participant);
-            await updatePaidParticipants(participant);
-        } catch (error) {
-            console.log(error);
-            await sendErrorMailToAdmin({ values: participant, error });
-        }
-    });
-});
+// schedule.scheduleJob(REPEAT_PAID_JOBS, async function () {
+//     console.log(`Running Payment Job at ${new Date().toLocaleString()}`);
+//     const paidParticipants = await sortPaidParticipants();
+//     if (!paidParticipants.length) return;
+//     paidParticipants.forEach(async (participant) => {
+//         try {
+//             await sendPaidEmail(participant);
+//             await updatePaidParticipants(participant);
+//         } catch (error) {
+//             console.log(error);
+//             await sendErrorMailToAdmin({ values: participant, error });
+//         }
+//     });
+// });
