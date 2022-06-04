@@ -30,6 +30,9 @@ mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone }) 
                 <p>Use this token for your reference: <b>${token}</b></p>
             `,
         };
+        if(typeof name !== 'string' || typeof email !== 'string' || !email.includes('@')) {
+            return resolve();
+        }
         return mailgun.messages().send(data, (error) => {
             if (error) return reject(error);
             return resolve();
@@ -51,6 +54,9 @@ mailUtility.sendPaidEmail = ({ email, name, token, registerNo, phone }) => {
                 <p>Use this token for your reference when attending the event: <b>${token}</b></p>
             `,
         };
+        if(typeof name !== 'string' || typeof email !== 'string' || !email.includes('@')) {
+            return resolve();
+        }
         return mailgun.messages().send(data, (error) => {
             if (error) return reject(error);
             return resolve();
@@ -61,8 +67,8 @@ mailUtility.sendPaidEmail = ({ email, name, token, registerNo, phone }) => {
 mailUtility.sendErrorMailToAdmin = ({ email = adminEmail, values, error }) => {
     return new Promise((resolve, reject) => {
         const data = {
-            from: adminEmail,
-            to: email,
+            from: "no-reply@ieeesrmist.in",
+            to: adminEmail,
             subject: "IEEE SRMIST Student Branch - Error",
             html: `
                 <h3>Error sending Mail</h3>

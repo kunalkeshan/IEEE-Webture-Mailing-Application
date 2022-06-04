@@ -12,7 +12,6 @@ const errorHandler = require('./middlewares/error.middleware');
 
 // Initializing App
 const app = express();
-require('./agenda');
 
 // Setting up middleware
 app.use(cors({
@@ -35,5 +34,6 @@ app.use(errorHandler);
 // Initializing Server
 app.listen(PORT, () => {
     require('./utils/initialize');
+    require('./agenda');
     console.log(`Server is running on http://localhost:${PORT}.`);
 });
