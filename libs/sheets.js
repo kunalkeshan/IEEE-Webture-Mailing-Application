@@ -4,13 +4,9 @@
 
 // Dependencies
 const Participants = require('../models/Participants');
-const fs = require('fs');
-const path = require('path');
 const axios = require('axios');
 const csv = require('csvtojson');
 const { sheets, SHEET_KEYS } = require('../config');
-
-const PARTICIPANTS_FILE_PATH = path.resolve('.data', 'participants.json');
 
 // Sheets Lib Container
 const sheetsLib = {}
@@ -27,7 +23,7 @@ sheetsLib.fetchAllParticipants = async () => {
                 registerNo: data[SHEET_KEYS.REGISTER_NO],
                 token: data[SHEET_KEYS.TOKEN],
                 submittedAt: data[SHEET_KEYS.SUBMITTED_AT],
-                paid: data[SHEET_KEYS.PAID] === 'Yes' ? true : false,
+                paid: data[SHEET_KEYS.PAID] === 'Yes',
             }
         });
     } catch (error) {

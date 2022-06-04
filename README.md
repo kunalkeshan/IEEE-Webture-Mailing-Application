@@ -14,7 +14,7 @@ Table of Contents:
 
 Use `$ npm install` to install the dependencies.
 
-Additionally you'll need to do some external set up. 
+Additionally you'll need to do some external set up.
 
 - The Response's from the Google Sheets being extracted come from the responses of [TypeForm](https://typeform.com).
   - Create a TypeForm and Connect it to a Google Sheet.
@@ -42,6 +42,11 @@ Additionally you'll need to do some external set up.
 
     EMAIL_API_KEY=<mailgun api key here>
     EMAIL_DOMAIN=<mailgun api domain here>
+
+    # DATABASE
+
+    DB_URL_TEST='mongodb://localhost:27017:IEEEWebture'
+    DB_URL_PROD=<production mongodb url here>
   ```
 
 ## Basic Functions
@@ -50,7 +55,7 @@ Additionally you'll need to do some external set up.
 - It fetches the data from the Google Sheet and sends the emails.
 - It uses [TypeForm](https://typeform.com) to get the responses.
 - It uses [Mailgun](https://mailgun.com) to send the emails.
-- For Quick comparison, of email recipients, the data is stored in a local JSON file.
+- For Quick comparison, of email recipients, the data is stored in MongoDB. (Also if the hosting system is ephemeral, this saves the tension of having to worry about emails being sent more than once to the same person)
 - Three Emails are sent to the attendees.
   - One is a confirmation email.
   - The other is a paid email.
