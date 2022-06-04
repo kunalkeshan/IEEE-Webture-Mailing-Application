@@ -1,4 +1,4 @@
-# IEEE Webture Boot camp on Fullstack Development - Backend Application
+# IEEE Webture Boot camp on Fullstack Development - Mailing Application
 
 Web application that sends confirmation and paid email updates to the attendees of the boot camp.
 
