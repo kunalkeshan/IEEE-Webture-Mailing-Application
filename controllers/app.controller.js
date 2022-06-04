@@ -20,7 +20,7 @@ appController.index = (req, res, next) => {
             message: 'IEEE Webture Bootcamp - 2022 - Mailing Application',
             description: 'Extracts information from the registrations made for the event, send\'s and confirmation mail and a paid mail once payment is done.',
             code: {
-                repository: 'https://github.com/kunalkeshan/IEEE-Script-Day-Bootcamp-Backend',
+                repository: 'https://github.com/kunalkeshan/IEEE-Webture-Mailing-Application',
                 hosted: 'https://heroku.com'
             },
             createdBy: {
