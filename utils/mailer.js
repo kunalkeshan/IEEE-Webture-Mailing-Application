@@ -16,17 +16,12 @@ mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone }) 
         const data = {
             from: "no-reply@ieeesrmist.in",
             to: email,
-            subject: "IEEE SRMIST Student Branch - Registration Confirmation",
+            subject: "Registration Confirmed | Webture IEEE SRM",
             // html: confirmedEmail({name, token}),
             html: `
                 <h3>Registration Confirmation</h3>
                 <p>Dear ${name},</p>
-                <p>Thank you for registering for IEEE SRMIST Student Branch.</p>
-                <p>Please go to the any of the following locations to confirm your payment:</p>
-                <ul>
-                    <li>Tech Park</li>
-                    <li>Java Green</li>
-                <ul>
+                <p>Thank you for registering for Webture Bootcamp by IEEE SRM. You'll receive further updates through your email soon!</p>
                 <p>Use this token for your reference: <b>${token}</b></p>
             `,
         };
