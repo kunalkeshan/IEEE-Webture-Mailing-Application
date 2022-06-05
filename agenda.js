@@ -13,8 +13,8 @@ const {
 } = require('./libs/sheets');
 const { sendConfirmationEmail, sendPaidEmail, sendErrorMailToAdmin } = require('./utils/mailer');
 
-const REPEAT_CONFIRMATION_JOBS = '*/10 * * * *';
-const REPEAT_PAID_JOBS = '*/13 * * * *';
+const REPEAT_CONFIRMATION_JOBS = '*/5 * * * *';
+const REPEAT_PAID_JOBS = '*/7 * * * *';
 
 const sortConfirmedParticipants = async () => {
     const allParticipants = await fetchAllParticipants();
