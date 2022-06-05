@@ -18,6 +18,7 @@ const transporter = nodemailer.createTransport({
         user: nodemailerConfig.email,
         pass: nodemailerConfig.pass,
     },
+    pool: true,
     from: 'IEEE SRMIST <ieee.srmist.edu.in>'
 });
 
