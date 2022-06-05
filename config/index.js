@@ -46,6 +46,10 @@ const configuration = {
     emailConfig: {
         apiKey: process.env.EMAIL_API_KEY,
         domain: process.env.EMAIL_DOMAIN,
+    },
+    nodemailerConfig: {
+        email: process.env.EMAIL_MAIL,
+        pass: process.env.EMAIL_PASS,
     }
 };
 

@@ -4,49 +4,45 @@
 
 
 // Dependencies
-const { emailConfig, adminEmail } = require('../config');
-const mailgun = require('mailgun-js')(emailConfig);
+const nodemailer = require('nodemailer');
+const { adminEmail, nodemailerConfig } = require('../config');
 const { confirmedEmail, paidEmail } = require('../templates');
 
 // Mailer Utility Container
 const mailUtility = {};
 
+// Mail Transporter
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: nodemailerConfig.email,
+        pass: nodemailerConfig.pass,
+    },
+    from: 'IEEE SRMIST <ieee.srmist.edu.in>'
+});
+
 mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone }) => {
     return new Promise((resolve, reject) => {
         const data = {
-            from: "no-reply@ieeesrmist.in",
             to: email,
-            subject: "Registration Confirmed | Webture IEEE SRM",
+            subject: 'Registration Confirmed | Webture IEEE SRM',
             html: confirmedEmail({name, token}),
         };
-        if(typeof name !== 'string' || typeof email !== 'string' || !email.includes('@')) {
+        return transporter.sendMail(data, (error, info) => {
+            if(error) return reject(error);
             return resolve();
-        }
-        return mailgun.messages().send(data, (error) => {
-            if (error) return reject(error);
-            return resolve();
-        });
-    })
-};
+        })
+    });
+}
 
 mailUtility.sendPaidEmail = ({ email, name, token, registerNo, phone }) => {
     return new Promise((resolve, reject) => {
         const data = {
-            from: "no-reply@ieeesrmist.in",
             to: email,
-            subject: "IEEE SRMIST Student Branch - Payment Confirmation",
-            // html: paidEmail({name, token}),
-            html: `
-                <h3>Payment Confirmation</h3>
-                <p>Dear ${name},</p>
-                <p>Thank you for registering for IEEE SRMIST Student Branch. Your registration has been confirmed.</p>
-                <p>Use this token for your reference when attending the event: <b>${token}</b></p>
-            `,
+            subject: "Payment Confirmed | Webture IEEE SRM",
+            html: paidEmail({name, token}),
         };
-        if(typeof name !== 'string' || typeof email !== 'string' || !email.includes('@')) {
-            return resolve();
-        }
-        return mailgun.messages().send(data, (error) => {
+        return transporter.sendMail(data, (error, info) => {
             if (error) return reject(error);
             return resolve();
         });
@@ -56,9 +52,8 @@ mailUtility.sendPaidEmail = ({ email, name, token, registerNo, phone }) => {
 mailUtility.sendErrorMailToAdmin = ({ email = adminEmail, values, error }) => {
     return new Promise((resolve, reject) => {
         const data = {
-            from: "no-reply@ieeesrmist.in",
             to: adminEmail,
-            subject: "IEEE SRMIST Student Branch - Error",
+            subject: "Webture Mailing Service - Error Sending Email",
             html: `
                 <h3>Error sending Mail</h3>
                 <p>There was an error sending an email to the individual with the following details:</p>
@@ -70,7 +65,7 @@ mailUtility.sendErrorMailToAdmin = ({ email = adminEmail, values, error }) => {
                 <p>${error}</p>
             `,
         };
-        mailgun.messages().send(data, (error) => {
+        return transporter.sendMail(data, (error, info) => {
             // if (error) return reject(error);
             return resolve();
         });
