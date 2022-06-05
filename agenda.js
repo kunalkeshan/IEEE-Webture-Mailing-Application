@@ -32,7 +32,7 @@ const sortPaidParticipants = async () => {
     const paidParticipants = await fetchPaidParticipants();
     allParticipants = allParticipants.filter((participant) => participant.paid);
     const sortedParticipants = allParticipants.filter((participant) => {
-        return !paidParticipants.find((paid) => { 
+        return !paidParticipants.find((paid) => {
             return paid.email === participant.email;
         })
     });
@@ -47,6 +47,7 @@ schedule.scheduleJob(REPEAT_CONFIRMATION_JOBS, async function () {
     confirmedParticipants.forEach(async (participant) => {
         try {
             await sendConfirmationEmail(participant);
+            await delay(1000);
             await updateConfirmedParticipants(participant);
         } catch (error) {
             console.log(error);
@@ -63,6 +64,7 @@ schedule.scheduleJob(REPEAT_PAID_JOBS, async function () {
     paidParticipants.forEach(async (participant) => {
         try {
             await sendPaidEmail(participant);
+            await delay(1000);
             await updatePaidParticipants(participant);
         } catch (error) {
             console.log(error);
@@ -70,3 +72,11 @@ schedule.scheduleJob(REPEAT_PAID_JOBS, async function () {
         }
     });
 });
+
+async function delay(timeInMs) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, timeInMs);
+    });
+};
