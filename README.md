@@ -2,6 +2,8 @@
 
 Web application that sends confirmation and paid email updates to the attendees of the boot camp.
 
+> ⚠️ This application Uses **Nodemailer** for sending emails! If you're looking for something like **Mailgun**. Then Checkout the [`main`](https://github.com/kunalkeshan/IEEE-Webture-Mailing-Application/tree/main) branch on this repository. It's updated with the same logic using Mailgun.
+
 Table of Contents:
 
 - [Installation](#installation)
@@ -27,10 +29,8 @@ Additionally you'll need to do some external set up.
     }
   ```
 
-- For the Mailing Service, [Mailgun](https://mailgun.com) is used in the application.
-  - Create a Mailgun account.
-  - Add your Domain and create an API Key for it.
-  - Copy your domain and paste it in a `.env` file on the root of your app.
+- For the Mailing Service, [Nodemailer](https://nodemailer.com/) is used in the application with gmail as its service. 
+  - Copy your email and password in a `.env` file on the root of your app.
 
   ```env
     # NODE ENVIRONMENT 
@@ -40,8 +40,8 @@ Additionally you'll need to do some external set up.
 
     # EMAIL CONFIG
 
-    EMAIL_API_KEY=<mailgun api key here>
-    EMAIL_DOMAIN=<mailgun api domain here>
+    EMAIL_MAIL=<gmail email here>
+    EMAIL_PASS=<gmail password here>
 
     # DATABASE
 
@@ -54,7 +54,7 @@ Additionally you'll need to do some external set up.
 - Application is running on [Express](https://expressjs.com/en/api.html).
 - It fetches the data from the Google Sheet and sends the emails.
 - It uses [TypeForm](https://typeform.com) to get the responses.
-- It uses [Mailgun](https://mailgun.com) to send the emails.
+- It uses [Nodemailer](https://nodemailer.com/) to send the emails.
 - For Quick comparison, of email recipients, the data is stored in MongoDB. (Also if the hosting system is ephemeral, this saves the tension of having to worry about emails being sent more than once to the same person)
 - Three Emails are sent to the attendees.
   - One is a confirmation email.
