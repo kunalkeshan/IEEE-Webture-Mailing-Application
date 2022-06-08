@@ -43,10 +43,6 @@ const configuration = {
     DB_URL,
     SHEET_KEYS: isProduction ? SHEET_KEYS_PROD : SHEET_KEYS,
     adminEmail: isProduction ? 'kk1234@srmist.edu.in' : 'kk1738@srmist.edu.in',
-    emailConfig: {
-        apiKey: process.env.EMAIL_API_KEY,
-        domain: process.env.EMAIL_DOMAIN,
-    },
     nodemailerConfig: {
         email: process.env.EMAIL_MAIL,
         pass: process.env.EMAIL_PASS,
