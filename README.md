@@ -2,6 +2,8 @@
 
 Web application that sends confirmation and paid email updates to the attendees of the boot camp.
 
+> ⚠️ This application Uses **Mailgun** for sending emails! If you're looking for something simple like **Nodemailer**. Then Checkout the [`switch-to-nodemailer`](https://github.com/kunalkeshan/IEEE-Webture-Mailing-Application/tree/switch-to-nodemailer) branch on this repository. It's updated with the same logic using Nodemailer.
+
 Table of Contents:
 
 - [Installation](#installation)
