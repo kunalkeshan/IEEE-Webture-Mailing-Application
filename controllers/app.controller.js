@@ -21,7 +21,7 @@ appController.index = (req, res, next) => {
             description: 'Extracts information from the registrations made for the event, send\'s and confirmation mail and a paid mail once payment is done.',
             code: {
                 repository: 'https://github.com/kunalkeshan/IEEE-Webture-Mailing-Application',
-                hosted: 'https://heroku.com'
+                hosted: 'https://render.com'
             },
             createdBy: {
                 name: 'Kunal Keshan',

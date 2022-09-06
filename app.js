@@ -5,8 +5,9 @@
 // Dependencies
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const appRouter = require('./routers');
-const { PORT } = require('./config');
+const { PORT, DB_URL } = require('./config');
 const { ApiError } = require('./utils/custom');
 const errorHandler = require('./middlewares/error.middleware');
 
@@ -32,8 +33,17 @@ app.use((req, res, next) => {
 app.use(errorHandler);
 
 // Initializing Server
-app.listen(PORT, () => {
-    require('./utils/initialize');
-    require('./agenda');
-    console.log(`Server is running on http://localhost:${PORT}.`);
-});
+mongoose.connect(DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then((res) => {
+    console.log('Connected to Database.');
+    app.listen(PORT, () => {
+        require('./utils/initialize');
+        require('./agenda');
+        console.log(`Server is running on http://localhost:${PORT}.`);
+    });
+}).catch((error) => {
+    console.log(`Error connecting to Database: ${error}`);
+    process.exit(1);
+})

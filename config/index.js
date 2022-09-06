@@ -9,8 +9,8 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const sheets = {
     ALL_PARTICIPANTS_SPREADSHEET_PUBLISHED_URL: isProduction ?
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vRZNNePanQJ2AK01qTwOo0B6m_EUUADfYYmfQwJrJCS7tdEVBlD4oKVrTnlR68JhMf0tC4cnnfVa04j/pub?gid=663776539&single=true&output=csv'
-        : 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTDOJbJeNMWiG9tq7mGFv0C7Dz_XFwb_7LBC8eCtTUJcM63BtKazIIYKTcb62OKjOUc7zrmEqYkbZrD/pub?gi:835525227&single=true&output=csv',
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vSApO_kbepcQ2UBwUmqoyWaf1Wmx25VVsgNkOlRZTuuYyK2bO9OZ2B7zOzwgmm8TwePQkzg0p3F4iXd/pub?gid=1039896981&single=true&output=csv'
+        : '',
 }
 
 const DB_URL = isProduction ? process.env.DB_URL_PROD : process.env.DB_URL_TEST;
