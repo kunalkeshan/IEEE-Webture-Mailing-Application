@@ -26,11 +26,11 @@ mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone }) 
     return new Promise((resolve, reject) => {
         const data = {
             to: email,
-            subject: 'Registration Confirmed | Webture IEEE SRM',
-            html: confirmedEmail({name, token}),
+            subject: 'Concepto 2022 | IEEE SRM SB',
+            html: confirmedEmail({ name, token, registerNo }),
         };
         return transporter.sendMail(data, (error, info) => {
-            if(error) return reject(error);
+            if (error) return reject(error);
             return resolve();
         })
     });
@@ -41,7 +41,7 @@ mailUtility.sendPaidEmail = ({ email, name, token, registerNo, phone }) => {
         const data = {
             to: email,
             subject: "Payment Confirmed | Webture IEEE SRM",
-            html: paidEmail({name, token}),
+            html: paidEmail({ name, token }),
         };
         return transporter.sendMail(data, (error, info) => {
             if (error) return reject(error);
