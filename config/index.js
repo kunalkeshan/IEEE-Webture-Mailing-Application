@@ -26,11 +26,11 @@ const SHEET_KEYS = {
 }
 
 const SHEET_KEYS_PROD = {
-    EMAIL: 'Team Lead\'s SRMIST Email ID?This question is required.',
-    PHONE: 'Your Contact Number:',
+    EMAIL: 'Team Lead\'s SRMIST Email ID?',
+    PHONE: 'Team Lead\'s Contact Number:',
     REGISTER_NO: 'What\'s your SRM Register Number?',
     TOKEN: 'Token',
-    NAME: 'First off,  what\'d we call you?',
+    NAME: 'First off, what\'d we call your team?',
     SUBMITTED_AT: 'Submitted At',
     PAID: 'Paid',
 };
