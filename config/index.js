@@ -9,28 +9,28 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const sheets = {
     ALL_PARTICIPANTS_SPREADSHEET_PUBLISHED_URL: isProduction ?
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vT78kCQKYBM1ISFr2CJY5A4L-EJK0NQq74FOnLcCgpA491-oIAbNsVL1O2dhFuvDXjniQhzsFkV0Vf4/pub?gid=327840845&single=true&output=csv'
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTs9wi2mWYO19FMIljjDnrrRosY3HLokkd08gt15O90jIwrGsImd8Gy-Kn1rE3G0wv2NGWCmEJQmJ20/pub?gid=119849876&single=true&output=csv'
         : '',
 }
 
 const DB_URL = isProduction ? process.env.DB_URL_PROD : process.env.DB_URL_TEST;
 
 const SHEET_KEYS = {
-    EMAIL: "Team Lead's SRMIST Email ID?",
-    PHONE: "Team Lead's Contact Number:",
-    REGISTER_NO: "What's your Register Number?",
-    TOKEN: "Token",
-    NAME: "First off, what'd we call your team?",
-    SUBMITTED_AT: "Submitted At",
-    PAID: "Paid",
+    EMAIL: 'What\'s your college email Id?',
+    PHONE: 'What\'s your mobile number?',
+    REGISTER_NO: 'What\'s your Registration number?',
+    TOKEN: 'Token',
+    NAME: 'What\'s your name?',
+    SUBMITTED_AT: 'Submitted At',
+    PAID: 'Paid',
 }
 
 const SHEET_KEYS_PROD = {
-    EMAIL: 'Team Lead\'s SRMIST Email ID?',
-    PHONE: 'Team Lead\'s Contact Number:',
-    REGISTER_NO: 'What\'s your SRM Register Number?',
+    EMAIL: 'What\'s your college email Id?',
+    PHONE: 'What\'s your mobile number?',
+    REGISTER_NO: 'What\'s your Registration number?',
     TOKEN: 'Token',
-    NAME: 'First off, what\'d we call your team?',
+    NAME: 'What\'s your name?',
     SUBMITTED_AT: 'Submitted At',
     PAID: 'Paid',
 };
