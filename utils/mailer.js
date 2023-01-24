@@ -14,6 +14,7 @@ const mailUtility = {};
 // Mail Transporter
 const transporter = nodemailer.createTransport({
     service: 'gmail',
+    secure: false,
     auth: {
         user: nodemailerConfig.email,
         pass: nodemailerConfig.pass,
@@ -26,7 +27,7 @@ mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone }) 
     return new Promise((resolve, reject) => {
         const data = {
             to: email,
-            subject: 'Concepto 2022 | IEEE SRM SB',
+            subject: 'Hello, Cloud! Event Confirmation | IEEE SRM SB',
             html: confirmedEmail({ name, token, registerNo }),
         };
         return transporter.sendMail(data, (error, info) => {
