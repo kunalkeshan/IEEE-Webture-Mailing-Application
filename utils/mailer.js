@@ -19,7 +19,6 @@ const transporter = nodemailer.createTransport(smtpTransport({
         user: nodemailerConfig.email,
         pass: nodemailerConfig.pass,
     },
-    secure: true,
     pool: true,
     from: 'IEEE SRMIST <ieee.srmist.edu.in>'
 }));
@@ -33,6 +32,7 @@ mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone }) 
         };
         return transporter.sendMail(data, (error, info) => {
             if (error) return reject(error);
+            console.log(`Email sent to ${email}`);
             transporter.close();
             return resolve();
         })
