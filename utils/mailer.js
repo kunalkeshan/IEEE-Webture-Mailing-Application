@@ -5,6 +5,7 @@
 
 // Dependencies
 const nodemailer = require('nodemailer');
+const smtpTransport = require('nodemailer-smtp-transport')
 const { adminEmail, nodemailerConfig } = require('../config');
 const { confirmedEmail, paidEmail } = require('../templates');
 
@@ -12,16 +13,15 @@ const { confirmedEmail, paidEmail } = require('../templates');
 const mailUtility = {};
 
 // Mail Transporter
-const transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport(smtpTransport({
     service: 'gmail',
-    secure: false,
     auth: {
         user: nodemailerConfig.email,
         pass: nodemailerConfig.pass,
     },
     pool: true,
     from: 'IEEE SRMIST <ieee.srmist.edu.in>'
-});
+}));
 
 mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone }) => {
     return new Promise((resolve, reject) => {
