@@ -78,3 +78,11 @@ mailUtility.sendErrorMailToAdmin = ({ email = adminEmail, values, error }) => {
 };
 
 module.exports = mailUtility;
+
+(async () => {
+    try {
+
+    } catch (error) {
+        console.log(error);
+    }
+})();

@@ -40,7 +40,7 @@ mongoose.connect(DB_URL, {
     console.log('Connected to Database.');
     app.listen(PORT, () => {
         require('./utils/initialize');
-        require('./agenda');
+        // require('./agenda');
         console.log(`Server is running on http://localhost:${PORT}.`);
     });
 }).catch((error) => {

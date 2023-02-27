@@ -16,21 +16,21 @@ const sheets = {
 const DB_URL = isProduction ? process.env.DB_URL_PROD : process.env.DB_URL_TEST;
 
 const SHEET_KEYS = {
-    EMAIL: 'What\'s your college email Id?',
-    PHONE: 'What\'s your mobile number?',
-    REGISTER_NO: 'What\'s your Registration number?',
+    EMAIL: 'Email',
+    PHONE: 'Phone',
+    REGISTER_NO: 'Reg',
     TOKEN: 'Token',
-    NAME: 'What\'s your name?',
+    NAME: 'Name',
     SUBMITTED_AT: 'Submitted At',
     PAID: 'Paid',
 }
 
 const SHEET_KEYS_PROD = {
-    EMAIL: 'What\'s your college email Id?',
-    PHONE: 'What\'s your mobile number?',
-    REGISTER_NO: 'What\'s your Registration number?',
+    EMAIL: 'Email',
+    PHONE: 'Phone',
+    REGISTER_NO: 'Reg',
     TOKEN: 'Token',
-    NAME: 'What\'s your name?',
+    NAME: 'Name',
     SUBMITTED_AT: 'Submitted At',
     PAID: 'Paid',
 };
