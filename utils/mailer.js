@@ -7,7 +7,9 @@
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport')
 const { adminEmail, nodemailerConfig } = require('../config');
+const { fetchAllParticipants } = require('../libs/sheets');
 const { confirmedEmail, paidEmail } = require('../templates');
+
 
 // Mailer Utility Container
 const mailUtility = {};
@@ -20,14 +22,15 @@ const transporter = nodemailer.createTransport(smtpTransport({
         pass: nodemailerConfig.pass,
     },
     pool: true,
-    from: 'IEEE SRMIST <ieee.srmist.edu.in>'
+    from: 'IEEE SRMIST <ieee.srmist.edu.in>',
+    secure: false,
 }));
 
-mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone }) => {
+mailUtility.sendConfirmationEmail = ({ email, name, token, registerNo, phone, bcc = '' }) => {
     return new Promise((resolve, reject) => {
         const data = {
             to: email,
-            subject: 'Hello, Cloud! Event Confirmation | IEEE SRM SB',
+            subject: 'Welcome to IEEE SRM SB - Join Our WhatsApp Group',
             html: confirmedEmail({ name, token, registerNo }),
         };
         return transporter.sendMail(data, (error, info) => {
@@ -79,10 +82,16 @@ mailUtility.sendErrorMailToAdmin = ({ email = adminEmail, values, error }) => {
 
 module.exports = mailUtility;
 
-(async () => {
-    try {
-
-    } catch (error) {
-        console.log(error);
-    }
-})();
+// (async () => {
+//     try {
+//         const participants = await fetchAllParticipants();
+//         const emails = participants.map((p) => p.email).join(', ');
+//         transporter.sendMail({
+//             bcc: emails,
+//             subject: 'Welcome to IEEE SRM SB - Join Our WhatsApp Group',
+//             html: confirmedEmail({}),
+//         })
+//     } catch (error) {
+//         console.log(error);
+//     }
+// })();

@@ -9,7 +9,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const sheets = {
     ALL_PARTICIPANTS_SPREADSHEET_PUBLISHED_URL: isProduction ?
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vTs9wi2mWYO19FMIljjDnrrRosY3HLokkd08gt15O90jIwrGsImd8Gy-Kn1rE3G0wv2NGWCmEJQmJ20/pub?gid=119849876&single=true&output=csv'
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vSlaIDKtVUWTamRZ2sxnKhNjkrTalBMA0gAPKdGVGNh8TG3lR71ZM1CuqXJTl06ZLUIZEgX2mv5w2-V/pub?gid=0&single=true&output=csv'
         : '',
 }
 
@@ -42,7 +42,7 @@ const configuration = {
     sheets,
     DB_URL,
     SHEET_KEYS: isProduction ? SHEET_KEYS_PROD : SHEET_KEYS,
-    adminEmail: isProduction ? 'kk1234@srmist.edu.in' : 'kk1738@srmist.edu.in',
+    adminEmail: isProduction ? 'kk1738@srmist.edu.in' : 'kk1738@srmist.edu.in',
     nodemailerConfig: {
         email: process.env.EMAIL_MAIL,
         pass: process.env.EMAIL_PASS,
